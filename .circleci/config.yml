@@ -11,15 +11,27 @@ jobs:
             pip install --upgrade pip
             python3 -m pip install black
       - run:
-          name: Check
+          name: Sanity Check on installed package
           command: |
             which python3
             which pip
+            # this works, as expected.
+            # this is also suggested in Black's documentation here:
+            # https://github.com/psf/black#usage
             python -m black --help
       - run:
-          name: Simulate
+          name: Simulate Failure looking up installed package
           command: |
             black --help
+      - run:
+         name: Remedy
+         command: |
+           # See https://github.com/pyenv/pyenv/blame/master/README.md#L323
+           eval "$(pyenv init -)"
+           which black
+           black --help
+         when: always
+
 
 workflows:
   main:
