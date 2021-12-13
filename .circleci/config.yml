@@ -1,17 +1,22 @@
 version: 2.1
 
 jobs:
-  echo:
+  py:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/python:3.9
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
-          environment:
-            COLOR: "green"
+          name: Install dependencies
+          command: |
+            pip install --upgrade pip
+            python3 -m pip install black
+     - run:
+          name: Check
+          command: |
+            which python3
+            which pip
 
 workflows:
   main:
     jobs:
-      - echo
+      - py
