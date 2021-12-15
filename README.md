@@ -1,2 +1,1 @@
-# .circleci
-Template repository for starting a project with CircleCI config (i.e., boilerplate)
+# Exploring cimg/python Docker images
